@@ -1,0 +1,7 @@
+[labhosts]
+stuart ansible_host=10.10.1.5 ansible_user=stuart
+pete ansible_host=10.10.1.6 ansible_user=pete
+[labhosts:vars]
+ansible_ssh_extra_args="-o StrictHostKeyChecking=no"
+ansible_become_pass=alta3 
+

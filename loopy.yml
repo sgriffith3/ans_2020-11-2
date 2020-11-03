@@ -1,0 +1,45 @@
+---
+- name: Learning Lists, Dictionaries, and Loops
+  hosts: localhost
+
+  vars:
+    pets:
+    - [cat1, cat2]
+    - dog
+    - hamster
+    zoo:
+      big_cats:
+        lions:
+          names:
+          - Mufasa
+          - Simba
+        tigers:
+          names:
+          - Musafa
+          - Raja
+    # safari:
+      # elephants:
+
+  tasks:
+  - name: Print out lions
+    debug:
+      msg: "The lion's name is: {{ item }}"
+    loop: "{{ zoo.big_cats.lions.names }}"
+    
+  - name: Print out lions
+    debug:
+      msg: "The lion's name is: {{ item }} (with_items)"
+    with_items: 
+    - "{{ zoo.big_cats.lions.names }}"
+ 
+#  - name: Print out pets
+#    debug:
+#      msg: "The loop prints out: {{ item }}"
+#    loop: "{{ pets }}"
+#    
+#  - name: Print out pets
+#    debug:
+#      msg: "Using with_items prints out: {{ item }}"
+#    with_items: "{{ pets }}"
+
+

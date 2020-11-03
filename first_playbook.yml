@@ -1,0 +1,26 @@
+---
+- name: The first play
+  hosts: labhosts
+
+  tasks:
+  - name: Debugging our first playbook
+    debug:
+      msg: Hey, this worked!
+
+  - name: A second task in our playbook
+    debug:
+      msg: Great! This worked too!
+
+- name: My Second Play
+  hosts: pete
+
+  tasks:
+  - name: Debug the Second Play
+    debug:
+      msg: This is the first task of the second play
+
+  - name: using apt to install figlet
+    apt:
+        name: figlet
+        state: absent
+    become: yes

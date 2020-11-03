@@ -1,0 +1,23 @@
+---
+- name: Learning to use conditionals when
+  hosts: labhosts
+
+  vars:
+    prize: True
+    winner: "pete"
+
+  tasks:
+  - name: Print out winner only on host that wins
+    debug:
+      msg: "Winner!"
+    when: inventory_hostname == winner
+
+  - name: Prints only when prize is True
+    debug:
+      msg: "There is a prize!"
+    when: prize|bool
+
+  - name: Prints only when prize is True and inventory_hostname is winner
+    debug:
+      msg: "Congratulations {{ inventory_hostname }}, you won the prize!"
+    when: prize|bool and inventory_hostname == winner
