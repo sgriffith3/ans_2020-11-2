@@ -1,0 +1,57 @@
+---
+- name: Examples for lot's o' modules
+  hosts: planetexpress
+
+  tasks:
+  - name: Shell Module
+    shell: mkdir ~/test
+    ignore_errors: True
+
+  - name: Copy Module
+    copy:
+      src: zoo.yml
+      dest: test/zoo2.yml
+
+  - name: Apt Module
+    apt:
+      name: bastet
+      state: present
+    become: True
+    when: ansible_pkg_mgr == "apt"
+
+  - name: Yum Module
+    yum:
+      name: figlet
+      state: present
+    become: True
+    when: ansible_pkg_mgr == "yum"
+    tags:
+    - farn 
+
+  - name: Get_url Module
+    get_url:
+      url: https://google.com
+      dest: test/google_output.txt
+    tags:
+    - googs
+
+
+  - name: File Module
+    file:
+      path: file_test/testing_01/my_dir
+      state: directory
+    tags:
+    - makedir
+
+
+#  - name: Git Module
+#    git:
+#
+#  - name: Template Module
+#    template:
+#
+#  - name: Lineinfile Module
+#    lineinfile:
+#
+#  - name: Replace Module
+#    replace:
