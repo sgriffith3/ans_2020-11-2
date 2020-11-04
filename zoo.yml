@@ -1,0 +1,27 @@
+---
+- name: Getting zoo animals
+  hosts: labhosts
+
+  vars:
+    zoo_animals:
+    - elephant
+    - giraffe
+    - zebra
+
+  vars_files:
+  - vars/animals.yml
+
+  tasks:
+  - debug:
+      msg: "Another Zoo Animal Is: {{ item }}"
+    loop: "{{ zoo_animals }}"
+    vars:
+      zoo_animals:
+      - kangaroo
+      - tortoise
+      - jaguar
+
+  - debug:
+      msg: "Another Zoo Animal Is: {{ item }}"
+    loop: "{{ zoo_animals }}"
+ 
