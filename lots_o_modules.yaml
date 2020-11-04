@@ -42,16 +42,61 @@
       state: directory
     tags:
     - makedir
+    - my_dir
 
+  - name: Git Module
+    git:
+      repo: https://github.com/sgriffith3/ans_2020-11-2
+      dest: ans_examples
+    tags:
+    - get
+    - bootit
 
-#  - name: Git Module
-#    git:
-#
-#  - name: Template Module
-#    template:
-#
-#  - name: Lineinfile Module
-#    lineinfile:
-#
-#  - name: Replace Module
-#    replace:
+  - name: Reboot machine
+    reboot:
+    become: True
+    tags:
+    - never
+    - bootit
+
+  - name: Template Module
+    template:
+      src: myconfig.txt.j2
+      dest: file_test/testing_01/my_dir/myconfig.txt
+    vars:
+      users:
+      - { 'url': 'https://sam.com', 'username': 'sam' }
+      - { 'url': 'https://steve.com', 'username': 'steve' }
+      - { 'url': 'https://becky.com', 'username': 'becky' }
+    tags:
+    - my_dir
+
+  - name: copy example.txt
+    copy:
+      src: example.txt
+      dest: example.txt
+    tags:
+    - lif
+
+  - name: Lineinfile Module - add newline at the end
+    lineinfile:
+      path: example.txt
+      line: "This is the end of the file"
+    tags:
+    - lif
+
+  - name: Lineinfile Module - change a line in file
+    lineinfile:
+      path: example.txt
+      line: "This line has been altered by Ansible"
+      regexp: "^We"
+    tags:
+    - lif
+
+  - name: Replace Module
+    replace:
+      path: example.txt
+      replace: "This line has been replaced by Ansible"
+      regexp: "^This .*"
+    tags:
+    - lif 
