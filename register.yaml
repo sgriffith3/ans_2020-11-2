@@ -1,0 +1,13 @@
+---
+- name: Talking about register
+  hosts: all
+
+  tasks:
+  - name: ls the home directory
+    command: ls
+    register: home_ls
+
+  - name: debug the home_ls var
+    debug:
+      var: home_ls.stdout_lines
+

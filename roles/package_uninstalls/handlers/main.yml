@@ -1,0 +1,7 @@
+- name: figgy
+  debug:
+    msg: Figlet's state was changed
+
+- name: bas
+  debug:
+    msg: Bastet's state was changed

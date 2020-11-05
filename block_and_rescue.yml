@@ -1,0 +1,37 @@
+---
+- name: Using block and rescue
+  hosts: all
+
+  tasks:
+  - name: my first block
+    block:
+
+    - name: Install bastet using apt
+      apt:
+        name: bastet
+        state: present
+      become: True
+
+    - name: print apt worked
+      debug:
+        msg: apt worked
+
+    rescue:
+    - name: Install bastet using yum
+      yum:
+        name: bastet
+        state: present
+      become: True
+
+    - name: life-saver
+      debug:
+        msg: "{{ inventory_hostname }} has been rescued!"
+
+    always:
+    - name: print to log
+      debug: 
+        msg: This should be printed to a log
+
+  - name: print success
+    debug:
+      msg: success!

@@ -1,0 +1,29 @@
+---
+- name: Debug playbook to display ansible facts
+  hosts: localhost
+  gather_facts: yes
+
+  tasks:
+          # package attempts to identify the package handler on the local system
+          # and use the correct module
+          # however each repo may name package in a unique manner so you still
+          # may with to limit a task with the when: ansible_distribution conditional
+          # examples: yum, apt, dnf, pkg, etc.
+          - name: Install an app with apt only on Ubuntu systems
+            package:
+                    state: present
+                    name: sl
+            when: ansible_distribution == "Ubuntu"
+            become: yes
+
+          # print out the value of ansible_distribution
+          # (provided by gather_facts)
+          - name: Print out both users distro
+            debug:
+                    var: ansible_distribution
+
+          # print out the value of ansible_distribution_version
+          - name: Print out both users distro ver
+            debug:
+                    var: ansible_distribution_version
+

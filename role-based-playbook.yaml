@@ -1,0 +1,28 @@
+---
+- name: Learning to use roles
+  hosts: all
+
+  vars: 
+    install: True
+
+  pre_tasks:
+  - name: first task
+    debug:
+      msg: This is the FIRST TASK TO RUN
+
+  roles:
+  - name: package_installs
+    when: install | bool
+
+  - name: package_uninstalls
+    when: not install | bool
+
+  tasks:
+  - name: really a task
+    debug:
+      msg: This is actually a TASK
+
+  post_tasks:
+  - name: last task
+    debug:
+      msg: This is the last TASK (via post_tasks)

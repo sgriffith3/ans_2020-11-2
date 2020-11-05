@@ -1,0 +1,16 @@
+- name: package install figlet
+  package:
+    name: figlet
+    state: present
+  become: True
+  notify:
+  - figgy
+
+- name: package install bastet
+  package:
+    name: bastet
+    state: present
+  when: ansible_pkg_mgr != "yum"
+  become: True
+  notify:
+  - bas

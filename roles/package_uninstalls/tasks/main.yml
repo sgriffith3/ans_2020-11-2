@@ -1,0 +1,16 @@
+- name: package uninstall figlet
+  package:
+    name: figlet
+    state: absent
+  become: True
+  notify:
+  - figgy
+
+- name: package uninstall bastet
+  package:
+    name: bastet
+    state: absent
+  when: ansible_pkg_mgr != "yum"
+  become: True
+  notify:
+  - bas

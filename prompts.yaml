@@ -1,0 +1,16 @@
+---
+- name: Learning prompts
+  hosts: localhost
+
+  vars:
+    dog_name: "Mudge"
+
+  vars_prompt:
+  - name: "dog_name"
+    prompt: "What is the name of your dog?"
+    private: True 
+    #encrypt: "sha512_crypt"
+
+  tasks:
+  - debug:
+      msg: "{{ dog_name }}"

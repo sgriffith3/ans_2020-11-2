@@ -1,0 +1,22 @@
+---
+- name: using handlers
+  hosts: all:!farnsworth
+
+  tasks:
+  - name: uninstall bastet
+    package:
+      name: bastet
+      state: absent
+    become: True
+    ignore_errors: True
+    notify:
+    - debug_bastet_change
+
+  - name: doing second task
+    debug:
+      msg: This second task ran!
+
+  handlers:
+  - name: debug_bastet_change
+    debug: 
+      msg: "Bastet has been changed!"
