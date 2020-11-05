@@ -1,0 +1,24 @@
+# Challenge
+
+Your Job is to configure the planet express hosts to
+have the following actions performed on them:
+
+1. *PART OF A ROLE* A local file that you create, example.txt needs *copy*-ed 
+   onto each host into their /tmp directory
+2. *PART OF A ROLE* You must do some *debug*-ing to verify the example.txt file exists
+   by performing an *ls* *shell* command and *register*-ing the result,
+   prior to printing it out to the screen
+3. *A TASK*         A program needs to be installed using *apt*
+   or *yum* *when* the host uses it as their *ansible_pkg_mgr*.
+   This program needs to be a variable which is gathered
+   by a *vars_prompt* section.
+   
+Create a playbook that uses at least the following:
+
+- 1 vars_prompt:
+- 1 role
+- 1 task
+- 1 when:
+- 1 register:
+
+
