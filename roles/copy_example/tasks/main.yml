@@ -1,0 +1,17 @@
+- name: Copy the example.txt file to the /tmp dir
+  copy: 
+    src: /home/student/ans/example.txt
+    dest: /tmp/example.txt
+
+- name: Copy the example2.txt file (from files dir) to the /tmp dir
+  copy: 
+    src: example2.txt
+    dest: /tmp/example.txt
+
+- name: Use shell to do an ls on the /tmp dir
+  shell: ls /tmp
+  register: ls_tmp
+
+- name: print out results of previous ls command
+  debug:
+    msg: "{{ ls_tmp }}"
