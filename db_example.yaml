@@ -1,0 +1,38 @@
+---
+- name: Get DB data and parse it
+  hosts: localhost
+  gather_facts: False
+
+  tasks:
+  - name: Issue a SQL command
+    shell: echo 'select hostid,hostname,domain_name from mytable where gateway_num = 1;' | sqlite3 /home/student/mrfc.db
+    register: sql_out
+
+  - name: print the sql_out
+    debug:
+      var: sql_out.stdout_lines
+
+  - name: Issue a SQL command on mrfc3
+    shell: echo 'select hostid,hostname,domain_name from mytable where gateway_num = 1;' | sqlite3 /home/student/mrfc3.db
+    register: sql_out3
+
+  - name: print the sql_out3
+    debug:
+      var: sql_out3.stdout_lines
+
+ #- local_action: copy content={{ sql_out }} dest={{ inventory_hostname }}.output
+  - name: save the sql_out.stdout_lines to the file db01.out
+    local_action: copy content={{ sql_out.stdout_lines }} dest=db01.out
+
+  - name: save the sql_out3.stdout_lines to the file db03.out
+    local_action: copy content={{ sql_out3.stdout_lines }} dest=db03.out
+
+  - name: Use the script module to compare the file differences
+    script: /usr/bin/python3 file_compare.py -f db01.out,db03.out
+    register: diffs
+    #local_action: script /usr/bin/python3 file_compare.py -f db01.out,db03.out
+    #
+
+  - name: Print out the diffs
+    debug:
+      var: diffs.stdout_lines
