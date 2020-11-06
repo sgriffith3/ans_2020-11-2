@@ -1,0 +1,47 @@
+---
+- name: Arista Config Saver
+  hosts: eosswitches
+  # collect facts about controller
+  # so that ansible_date_time is defined
+  gather_facts: yes
+
+  # location on the controller
+  vars_files:
+    - ~/switch.creds
+
+  tasks:
+  - name: Arista Fact Collection
+    eos_facts:
+      gather_subset: all  # IMPORTANT! Look at the Return values at the bottom of the eos_facts module
+
+  # v2.9 forward, this is required if you reference any ansible_date_time in your network playbooks
+  #- name: run local gather_facts on controller
+  #  setup:
+  #    vars:
+  #      ansible_connection: local
+  # The above solution might be better solved with the following
+  - name: get the current date
+    command: date "+%Y-%m-%d"
+    register: result
+    vars:
+      ansible_connection: local
+
+  - name: set a variable to make date easier
+    set_fact:
+      date_now: "{{ result.stdout }}"
+
+  - name: Create dir to save switch config backups
+    file:
+      path: ~/ans/backup/{{ date_now }}/
+      state: directory    # Playbook will FAIL without this directory
+
+  - name: Arista Config Save        
+    copy:
+      content: "{{ ansible_net_config }}"
+      dest: "~/ans/backup/{{ date_now }}/{{ inventory_hostname }}-config.backup"
+
+  - name: Arista Archival Process
+    archive:
+      path: "~/ans/backup/{{ date_now }}/{{ inventory_hostname }}-config.backup"
+      remove: True     # removes the original file
+

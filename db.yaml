@@ -1,0 +1,16 @@
+---
+- name: Run against local db
+  hosts: localhost
+  gather_facts: False
+  tasks:
+  - name: Issue a sql command
+    shell: "echo 'select hostid,hostname,domain_name from mytable where gateway_num = '1';' | sqlite3 mrfc.db"
+    register: sql_out
+
+  - name: print result
+    debug:
+      var: sql_out.stdout_lines
+
+  - copy:
+      content: "{{ sql_out.stdout_lines }}"
+      dest: db01.txt

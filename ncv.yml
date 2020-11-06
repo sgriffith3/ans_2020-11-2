@@ -1,0 +1,17 @@
+---
+- name: Network Commands by Vendor
+  hosts: eosswitches  # eosswitches is only active subgroup
+  gather_facts: no
+  vars_files:
+    - ~/switch.creds
+
+  tasks:
+  - name: Run an agnostic command
+    cli_command:
+      command: "{{ commandtoshowinterfaces }}"
+    register: results
+
+  - name: show results
+    debug:
+            var: results
+

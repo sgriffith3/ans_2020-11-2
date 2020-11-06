@@ -1,0 +1,7 @@
+eosswitches:
+  hosts:
+    sw-01:
+    sw-02:
+  vars:
+    ansible_network_os: eos
+    commandtoshowinterfaces: "show ip int br"

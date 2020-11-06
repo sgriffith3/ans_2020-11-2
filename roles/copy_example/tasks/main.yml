@@ -6,7 +6,7 @@
 - name: Copy the example2.txt file (from files dir) to the /tmp dir
   copy: 
     src: example2.txt
-    dest: /tmp/example.txt
+    dest: /tmp/example2.txt
 
 - name: Use shell to do an ls on the /tmp dir
   shell: ls /tmp

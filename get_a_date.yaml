@@ -1,0 +1,53 @@
+---
+- name: Learning about set_fact
+  hosts: all
+
+  tasks:
+  - name: Get the date
+    command: date "+%Y-%m-%d"
+    register: mydate
+
+  - name: debug mydate
+    debug:
+      msg: "{{ mydate }}"
+
+  - name: Get the stdout of mydate
+    set_fact:
+      standard_date: "{{ mydate.stdout }}"
+
+  - name: debug the standard date
+    debug:
+      msg: "{{ standard_date }}"
+
+  - name: Save the file with a datestamp
+    file:
+      path: "~/{{ standard_date }}-logs"
+      state: directory
+
+  - name: Do an ls of the home dir
+    shell: ls ~/
+    register: ls_home
+    tags:
+    - lshome
+
+  - debug:
+      msg: "{{ ls_home }}"
+    tags:
+    - lshome
+
+  - set_fact:
+      ls_files: "{{ ls_home.stdout_lines|list }}"
+    tags:
+    - lshome
+
+  - debug:
+      msg: "This host has a file named {{ item }} in it's home directory"
+    loop: "{{ ls_files }}"
+    tags:
+    - lshome
+
+
+
+
+
+#

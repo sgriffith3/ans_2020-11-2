@@ -1,0 +1,49 @@
+[allvendors:children]
+eosswitches
+iosswitches
+junosswitches
+nxosswitches
+vyosswitches
+
+[eosswitches]
+sw-01
+sw-02
+
+[eosswitches:vars]
+ansible_network_os=eos
+commandtoshowinterfaces="show ip int br"
+
+; additional switch vendors can be described within their own group
+; cisco ios switches could be described below
+[iosswitches]
+;ans-###-sw3
+;ans-###-sw4
+;
+;[iosswitches:vars]
+;ansible_network_os=ios
+;commandtoshowinterfaces="show ip int br"
+
+[junosswitches]
+;ans-###-sw5
+;ans-###-sw6
+;
+;[junosswitches:vars]
+;ansible_network_os=junos
+;commandtoshowinterfaces="show ip int br"
+;
+[nxosswitches]
+;ans-###-sw6
+;ans-###-sw7
+;
+;[nxosswitches:vars]
+;ansible_network_os=nxos
+;commandtoshowinterfaces="show ip int br"
+;
+[vyosswitches]
+;ans-###-sw8
+;ans-###-sw9
+;
+;[vyosswitches:vars]
+;ansible_network_os=vyos
+;commandtoshowinterfaces="show interface"
+
