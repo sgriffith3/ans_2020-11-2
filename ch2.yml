@@ -1,0 +1,17 @@
+- name: Friday Challenge Part 1
+  hosts: planetexpress
+
+  roles:
+  - name: friday.challenge02.rm_figbas
+    vars:
+      packages:
+      - figlet
+      - bastet
+
+- name: Friday Challenge Part 2
+  hosts: eosswitches
+
+  roles:
+  - name: friday.challenge02.login_banner
+    vars:
+      banner_text: "I rock at Ansible"

@@ -1,0 +1,5 @@
+- name: Using a role from ansible-galaxy
+  hosts: localhost
+  roles:
+    - role: geerlingguy.mysql
+      become: yes

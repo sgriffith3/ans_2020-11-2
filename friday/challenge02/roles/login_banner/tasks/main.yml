@@ -1,0 +1,4 @@
+- name: Update eos login banner
+  eos_banner:
+    banner: login
+    text: "{{ banner_text }}"

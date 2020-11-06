@@ -1,0 +1,16 @@
+- name: remove unwanted programs
+  package:
+    name: "{{ item }}"
+    state: absent
+  become: True
+  loop: "{{ packages }}"
+
+- name: ls home dir
+  shell: ls
+  register: ls_out
+
+- local_action: file path=/home/student/{{ ansible_date_time.date}} state=directory
+
+- name: save ls_out.stdout_lines to file
+  local_action: copy content={{ ls_out.stdout_lines }} dest=/home/student/{{ ansible_date_time.date }}/{{ inventory_hostname }}.home
+  
