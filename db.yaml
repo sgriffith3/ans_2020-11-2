@@ -4,7 +4,7 @@
   gather_facts: False
   tasks:
   - name: Issue a sql command
-    shell: "echo 'select hostid,hostname,domain_name from mytable where gateway_num = '1';' | sqlite3 mrfc.db"
+    shell: "echo 'select hostid,hostname,domain_name from mytable where gateway_num = '1';' | sqlite3 /home/student/mrfc.db"
     register: sql_out
 
   - name: print result
@@ -14,3 +14,9 @@
   - copy:
       content: "{{ sql_out.stdout_lines }}"
       dest: db01.txt
+
+  - script: /usr/bin/python3 file_compare.py -f db01.txt,db02.txt,db03.txt
+    register: diffs
+
+  - debug:
+      var: diffs.stdout
